@@ -1,6 +1,6 @@
-name: Pulumi Update
+name: Pulumi Preview
 on:
-  push:
+  pull_request:
     branches:
       - master
 defaults:
@@ -8,7 +8,7 @@ defaults:
     working-directory: Infrastructure
 jobs:
   up:
-    name: Update
+    name: Preview
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: docker://pulumi/actions
         with:
-          args: up --yes
+          args: preview
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.WEATHERAPI_CI_SUBSCRIPTIONID }}
           ARM_CLIENT_ID: ${{ secrets.WEATHERAPI_CI_APPID }}
